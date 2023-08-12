@@ -27,9 +27,14 @@ class GenericMaxFinder<T> where T : IComparable<T>
         return max;
     }
 
-    public T TestMaximum()
+    public void PrintMax()
     {
-        return FindMax();
+        Console.WriteLine($"Max: {FindMax()}");
+    }
+
+    public void TestMaximum()
+    {
+        PrintMax();
     }
 }
 
@@ -39,12 +44,12 @@ class Program
     {
         // Example usage
         GenericMaxFinder<int> intFinder = new GenericMaxFinder<int>(3, 7, 1, 9, 4);
-        Console.WriteLine($"Max Integer: {intFinder.TestMaximum()}");
+        intFinder.TestMaximum();
 
         GenericMaxFinder<double> doubleFinder = new GenericMaxFinder<double>(2.5, 1.8, 3.7, 2.0, 3.0);
-        Console.WriteLine($"Max Double: {doubleFinder.TestMaximum()}");
+        doubleFinder.TestMaximum();
 
         GenericMaxFinder<string> stringFinder = new GenericMaxFinder<string>("apple", "banana", "cherry", "date");
-        Console.WriteLine($"Max String: {stringFinder.TestMaximum()}");
+        stringFinder.TestMaximum();
     }
 }
