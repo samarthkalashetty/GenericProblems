@@ -1,6 +1,6 @@
 ﻿using System;
 
-class TC2
+class TC3
 {
     static void Main(string[] args)
     {
@@ -16,10 +16,10 @@ class TC2
         int[] testData = GenerateTestData(size, min, max);
         PrintArray("Original Test Data:", testData);
 
-        // Finding and moving the maximum number to the second position
-        MoveMaxToSecondPosition(testData);
+        // Finding and moving the maximum number to the third position
+        MoveMaxToThirdPosition(testData);
 
-        PrintArray("Test Data with Max Number at 2nd Position:", testData);
+        PrintArray("Test Data with Max Number at 3rd Position:", testData);
     }
 
     static int[] GenerateTestData(int size, int min, int max)
@@ -35,7 +35,7 @@ class TC2
         return testData;
     }
 
-    static void MoveMaxToSecondPosition(int[] data)
+    static void MoveMaxToThirdPosition(int[] data)
     {
         int maxIndex = 0;
         int maxValue = data[0];
@@ -49,10 +49,10 @@ class TC2
             }
         }
 
-        if (maxIndex != 1)
+        if (maxIndex != 2)
         {
-            int temp = data[1];
-            data[1] = data[maxIndex];
+            int temp = data[2];
+            data[2] = data[maxIndex];
             data[maxIndex] = temp;
         }
     }
