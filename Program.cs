@@ -2,34 +2,34 @@
 
 class GenericMaxFinder<T> where T : IComparable<T>
 {
-    private T variable1;
-    private T variable2;
-    private T variable3;
+    private T[] variables;
 
-    public GenericMaxFinder(T var1, T var2, T var3)
+    public GenericMaxFinder(params T[] vars)
     {
-        variable1 = var1;
-        variable2 = var2;
-        variable3 = var3;
+        if (vars.Length == 0)
+        {
+            throw new ArgumentException("At least one variable must be provided");
+        }
+
+        variables = vars;
     }
 
-    private T FindMax(T a, T b, T c)
+    private T FindMax()
     {
-        T max = a;
-        if (b.CompareTo(max) > 0)
+        T max = variables[0];
+        foreach (T variable in variables)
         {
-            max = b;
-        }
-        if (c.CompareTo(max) > 0)
-        {
-            max = c;
+            if (variable.CompareTo(max) > 0)
+            {
+                max = variable;
+            }
         }
         return max;
     }
 
     public T TestMaximum()
     {
-        return FindMax(variable1, variable2, variable3);
+        return FindMax();
     }
 }
 
@@ -38,13 +38,13 @@ class Program
     static void Main(string[] args)
     {
         // Example usage
-        GenericMaxFinder<int> intFinder = new GenericMaxFinder<int>(3, 7, 1);
+        GenericMaxFinder<int> intFinder = new GenericMaxFinder<int>(3, 7, 1, 9, 4);
         Console.WriteLine($"Max Integer: {intFinder.TestMaximum()}");
 
-        GenericMaxFinder<double> doubleFinder = new GenericMaxFinder<double>(2.5, 1.8, 3.7);
+        GenericMaxFinder<double> doubleFinder = new GenericMaxFinder<double>(2.5, 1.8, 3.7, 2.0, 3.0);
         Console.WriteLine($"Max Double: {doubleFinder.TestMaximum()}");
 
-        GenericMaxFinder<string> stringFinder = new GenericMaxFinder<string>("apple", "banana", "cherry");
+        GenericMaxFinder<string> stringFinder = new GenericMaxFinder<string>("apple", "banana", "cherry", "date");
         Console.WriteLine($"Max String: {stringFinder.TestMaximum()}");
     }
 }
