@@ -1,37 +1,48 @@
 ﻿using System;
+using System.Collections.Generic;
 
-class UC3
+class Refactor1
 {
-    static void Main(string[] args)
+    public static T FindMax<T>(IEnumerable<T> collection) where T : IComparable<T>
     {
-        for (int testCase = 1; testCase <= 3; testCase++)
+        if (collection == null)
         {
-            Console.WriteLine($"Test Case {testCase}");
-            string[] words = new string[3];
-
-            for (int i = 0; i < 3; i++)
-            {
-                Console.Write($"Enter String {i + 1}: ");
-                words[i] = Console.ReadLine();
-            }
-
-            string max = FindMaximum(words);
-            Console.WriteLine($"Maximum (lexicographically) among the entered strings: {max}\n");
+            throw new ArgumentNullException(nameof(collection), "Collection must not be null");
         }
-    }
 
-    static string FindMaximum(string[] values)
-    {
-        string max = values[0];
+        T max = default(T);
+        bool isFirstElement = true;
 
-        for (int i = 1; i < values.Length; i++)
+        foreach (T element in collection)
         {
-            if (string.Compare(values[i], max) > 0)
+            if (isFirstElement || element.CompareTo(max) > 0)
             {
-                max = values[i];
+                max = element;
+                isFirstElement = false;
             }
+        }
+
+        if (isFirstElement)
+        {
+            throw new ArgumentException("Collection must not be empty");
         }
 
         return max;
+    }
+
+    static void Main(string[] args)
+    {
+        // Example usage
+        List<int> integers = new List<int> { 3, 7, 1, 9, 4 };
+        int maxInt = FindMax(integers);
+        Console.WriteLine($"Max Integer: {maxInt}");
+
+        List<double> doubles = new List<double> { 2.5, 1.8, 3.7, 2.0, 3.0 };
+        double maxDouble = FindMax(doubles);
+        Console.WriteLine($"Max Double: {maxDouble}");
+
+        List<string> strings = new List<string> { "apple", "banana", "cherry", "date" };
+        string maxString = FindMax(strings);
+        Console.WriteLine($"Max String: {maxString}");
     }
 }
