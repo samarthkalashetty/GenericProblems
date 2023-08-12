@@ -1,37 +1,50 @@
 ﻿using System;
 
-class UC3
+class GenericMaxFinder<T> where T : IComparable<T>
+{
+    private T variable1;
+    private T variable2;
+    private T variable3;
+
+    public GenericMaxFinder(T var1, T var2, T var3)
+    {
+        variable1 = var1;
+        variable2 = var2;
+        variable3 = var3;
+    }
+
+    private T FindMax(T a, T b, T c)
+    {
+        T max = a;
+        if (b.CompareTo(max) > 0)
+        {
+            max = b;
+        }
+        if (c.CompareTo(max) > 0)
+        {
+            max = c;
+        }
+        return max;
+    }
+
+    public T TestMaximum()
+    {
+        return FindMax(variable1, variable2, variable3);
+    }
+}
+
+class Program
 {
     static void Main(string[] args)
     {
-        for (int testCase = 1; testCase <= 3; testCase++)
-        {
-            Console.WriteLine($"Test Case {testCase}");
-            string[] words = new string[3];
+        // Example usage
+        GenericMaxFinder<int> intFinder = new GenericMaxFinder<int>(3, 7, 1);
+        Console.WriteLine($"Max Integer: {intFinder.TestMaximum()}");
 
-            for (int i = 0; i < 3; i++)
-            {
-                Console.Write($"Enter String {i + 1}: ");
-                words[i] = Console.ReadLine();
-            }
+        GenericMaxFinder<double> doubleFinder = new GenericMaxFinder<double>(2.5, 1.8, 3.7);
+        Console.WriteLine($"Max Double: {doubleFinder.TestMaximum()}");
 
-            string max = FindMaximum(words);
-            Console.WriteLine($"Maximum (lexicographically) among the entered strings: {max}\n");
-        }
-    }
-
-    static string FindMaximum(string[] values)
-    {
-        string max = values[0];
-
-        for (int i = 1; i < values.Length; i++)
-        {
-            if (string.Compare(values[i], max) > 0)
-            {
-                max = values[i];
-            }
-        }
-
-        return max;
+        GenericMaxFinder<string> stringFinder = new GenericMaxFinder<string>("apple", "banana", "cherry");
+        Console.WriteLine($"Max String: {stringFinder.TestMaximum()}");
     }
 }
