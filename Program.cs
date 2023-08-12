@@ -1,32 +1,32 @@
 ﻿using System;
 
-class UC2
+class UC3
 {
     static void Main(string[] args)
     {
         for (int testCase = 1; testCase <= 3; testCase++)
         {
             Console.WriteLine($"Test Case {testCase}");
-            float[] numbers = new float[3];
+            string[] words = new string[3];
 
             for (int i = 0; i < 3; i++)
             {
-                Console.Write($"Enter Float {i + 1}: ");
-                numbers[i] = float.Parse(Console.ReadLine());
+                Console.Write($"Enter String {i + 1}: ");
+                words[i] = Console.ReadLine();
             }
 
-            float max = FindMaximum(numbers);
-            Console.WriteLine($"Maximum among the entered numbers: {max}\n");
+            string max = FindMaximum(words);
+            Console.WriteLine($"Maximum (lexicographically) among the entered strings: {max}\n");
         }
     }
 
-    static float FindMaximum(float[] values)
+    static string FindMaximum(string[] values)
     {
-        float max = values[0];
+        string max = values[0];
 
         for (int i = 1; i < values.Length; i++)
         {
-            if (values[i] > max)
+            if (string.Compare(values[i], max) > 0)
             {
                 max = values[i];
             }
