@@ -1,69 +1,37 @@
 ﻿using System;
 
-class TC2
+class UC2
 {
     static void Main(string[] args)
     {
-        Console.Write("Enter the size of the test data: ");
-        int size = int.Parse(Console.ReadLine());
-
-        Console.Write("Enter the minimum value: ");
-        int min = int.Parse(Console.ReadLine());
-
-        Console.Write("Enter the maximum value: ");
-        int max = int.Parse(Console.ReadLine());
-
-        int[] testData = GenerateTestData(size, min, max);
-        PrintArray("Original Test Data:", testData);
-
-        // Finding and moving the maximum number to the second position
-        MoveMaxToSecondPosition(testData);
-
-        PrintArray("Test Data with Max Number at 2nd Position:", testData);
-    }
-
-    static int[] GenerateTestData(int size, int min, int max)
-    {
-        Random random = new Random();
-        int[] testData = new int[size];
-
-        for (int i = 0; i < size; i++)
+        for (int testCase = 1; testCase <= 3; testCase++)
         {
-            testData[i] = random.Next(min, max + 1);
-        }
+            Console.WriteLine($"Test Case {testCase}");
+            float[] numbers = new float[3];
 
-        return testData;
-    }
-
-    static void MoveMaxToSecondPosition(int[] data)
-    {
-        int maxIndex = 0;
-        int maxValue = data[0];
-
-        for (int i = 1; i < data.Length; i++)
-        {
-            if (data[i] > maxValue)
+            for (int i = 0; i < 3; i++)
             {
-                maxIndex = i;
-                maxValue = data[i];
+                Console.Write($"Enter Float {i + 1}: ");
+                numbers[i] = float.Parse(Console.ReadLine());
+            }
+
+            float max = FindMaximum(numbers);
+            Console.WriteLine($"Maximum among the entered numbers: {max}\n");
+        }
+    }
+
+    static float FindMaximum(float[] values)
+    {
+        float max = values[0];
+
+        for (int i = 1; i < values.Length; i++)
+        {
+            if (values[i] > max)
+            {
+                max = values[i];
             }
         }
 
-        if (maxIndex != 1)
-        {
-            int temp = data[1];
-            data[1] = data[maxIndex];
-            data[maxIndex] = temp;
-        }
-    }
-
-    static void PrintArray(string label, int[] array)
-    {
-        Console.WriteLine(label);
-        foreach (int num in array)
-        {
-            Console.Write(num + " ");
-        }
-        Console.WriteLine();
+        return max;
     }
 }
